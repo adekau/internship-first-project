@@ -4,7 +4,7 @@ const tsc = require('gulp-typescript');
 const tslint = require('gulp-tslint');
 
 gulp.task('start', () => {
-    gulp.run(['tslint', 'nodemon']);
+    gulp.start(['tslint', 'nodemon']);
 });
 
 gulp.task('nodemon', () => {
@@ -17,7 +17,7 @@ gulp.task('nodemon', () => {
 gulp.task('compile', () => {
     const tsProject = tsc.createProject('server/src/tsconfig.json');
     const result = tsProject.src().pipe(tsProject());
-
+    
     result.js.pipe(gulp.dest('server/dist'));
 });
 
