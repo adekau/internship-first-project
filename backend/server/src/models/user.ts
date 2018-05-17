@@ -43,6 +43,14 @@ module.exports = (sequelize, DataTypes, bcrypt) => {
         });
     }
   });
-  
+
+  User.associate = function (models) {
+    models.User.hasMany(models.Incident, {
+      foreignKey: 'id',
+      targetId: 'userId',
+      as: 'incidents'
+    });
+  }
+
   return User;
 };
