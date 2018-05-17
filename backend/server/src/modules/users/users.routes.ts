@@ -4,9 +4,10 @@ import { Sequelize } from 'sequelize';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { models } from '../../models/index'
+import { isNumber } from 'util';
 
 // Local Constants
-const { User } = models;
+const { User, Incident } = models;
 
 export default (app: express.Express): void => {
   const BASE = '/users';
@@ -15,6 +16,12 @@ export default (app: express.Express): void => {
   app.get(BASE, (req: express.Request, res: express.Response) => {
 
     User.findAll({
+      include: [
+        {
+          model: Incident,
+          as: 'incidents'
+        }
+      ],
       attributes: {
         exclude: [
           'password',
@@ -26,6 +33,26 @@ export default (app: express.Express): void => {
       res.json(data);
     });
 
+  });
+
+  // GET /users/:id/incidents
+  app.get(BASE + '/:id/incidents', (req: express.Request, res: express.Response) => {
+    if (req.params.id && isNumber(+req.params.id)) {
+      User.findOne({
+        where: {
+          id: req.params.id
+        }
+      }).then(user => {
+        user.getIncidents().then(incidents => {
+          res.json(incidents);
+        });
+      });
+    } else {
+      res.json({
+        status: 404,
+        text: `Incident with id: ${req.params.id} not found.`
+      });
+    }
   });
 
   app.post(BASE + '/authenticate', (req: express.Request, res: express.Response) => {
