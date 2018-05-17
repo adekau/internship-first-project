@@ -46,7 +46,7 @@ export default (app: express.Express): void => {
             let str: any = "Hello";
             res.json({
               status: 200,
-              text: typeof str,
+              text: "Authenticated.",
               token: token
             })
           } else {

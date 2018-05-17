@@ -1,5 +1,3 @@
-import { Sequelize } from "sequelize";
-
 module.exports = (sequelize, DataTypes, bcrypt) => {
   const User = sequelize.define('User', {
     firstName: DataTypes.STRING,

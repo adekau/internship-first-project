@@ -33,7 +33,7 @@ exports.default = (app) => {
                         let str = "Hello";
                         res.json({
                             status: 200,
-                            text: typeof str,
+                            text: "Authenticated.",
                             token: token
                         });
                     }
