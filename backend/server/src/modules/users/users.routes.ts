@@ -43,7 +43,11 @@ export default (app: express.Express): void => {
           id: req.params.id
         }
       }).then(user => {
-        user.getIncidents().then(incidents => {
+        user.getIncidents({
+          attributes: {
+            exclude: ['userId', 'trackerId', 'lastHistoryId']
+          }
+        }).then(incidents => {
           res.json(incidents);
         });
       });
