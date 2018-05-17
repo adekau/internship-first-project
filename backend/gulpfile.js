@@ -14,10 +14,14 @@ gulp.task('nodemon', () => {
     });
 });
 
-gulp.task('compile', () => {
+gulp.task('copyconfig', () => {
+  gulp.src(['server/src/config/**/*']).pipe(gulp.dest('server/dist/config'));
+});
+
+gulp.task('compile', ['copyconfig'], () => {
     const tsProject = tsc.createProject('server/src/tsconfig.json');
     const result = tsProject.src().pipe(tsProject());
-    
+
     result.js.pipe(gulp.dest('server/dist'));
 });
 

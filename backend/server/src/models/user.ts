@@ -1,6 +1,4 @@
-'use strict';
-
-const bcrypt = require('bcrypt');
+import { Sequelize } from "sequelize";
 
 module.exports = (sequelize, DataTypes, bcrypt) => {
   const User = sequelize.define('User', {
@@ -35,7 +33,7 @@ module.exports = (sequelize, DataTypes, bcrypt) => {
   });
 
   User.addHook('beforeBulkCreate', 'generateBulkHash', (users) => {
-    for (const user in users) {
+    for (let user of users) {
       var hash = bcrypt.hash(user.password, 10)
         .then(hash => {
           user.password = hash;

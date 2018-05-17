@@ -1,13 +1,12 @@
-'use strict';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as Sequelize from 'sequelize';
+import * as bcrypt from 'bcrypt';
 
-var fs        = require('fs');
-var path      = require('path');
-var Sequelize = require('sequelize');
-var bcrypt    = require('bcrypt');
 var basename  = path.basename(__filename);
 var env       = process.env.NODE_ENV || 'development';
 var config    = require(__dirname + '/../config/config.json')[env];
-var db        = {};
+var db: any   = {};
 
 if (config.use_env_variable) {
   var sequelize = new Sequelize(process.env[config.use_env_variable], config);
@@ -34,4 +33,4 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-module.exports = db;
+export { db as models };

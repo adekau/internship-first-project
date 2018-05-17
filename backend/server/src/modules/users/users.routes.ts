@@ -2,14 +2,15 @@
 import * as express from 'express';
 import { Sequelize } from 'sequelize';
 import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
+import { models } from '../../models/index'
 
 // Local Constants
-const models = require('../../../../models/index');
 const { User } = models;
 
 export default (app: express.Express): void => {
   const BASE = '/users';
-
+  const secret = "adekmaestro";
   // add user routes
   app.get(BASE, (req: express.Request, res: express.Response) => {
 
@@ -40,13 +41,15 @@ export default (app: express.Express): void => {
         // in the database.
         let pass_equal = bcrypt.compare(req.body.password, user.password).then(same => {
           if (same) {
-            // TODO: return a session object.
+            // Generate a JSON web token using jwt library.
+            var token = jwt.sign({ user: user.id }, secret, { expiresIn: '24hr' });
+            let str: any = "Hello";
             res.json({
               status: 200,
-              text: 'Passwords match.'
+              text: typeof str,
+              token: token
             })
           } else {
-            // Probably leave like this?
             res.json({
               status: 401,
               text: 'Passwords do not match.'
@@ -54,6 +57,7 @@ export default (app: express.Express): void => {
           }
         });
       } else {
+        // A user with that email does not exist in the DB.
         res.json({
           status: 404,
           text: 'User not found'

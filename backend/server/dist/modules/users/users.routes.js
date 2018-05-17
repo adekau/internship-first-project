@@ -1,10 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt = require("bcrypt");
-const models = require('../../../../models/index');
-const { User } = models;
+const jwt = require("jsonwebtoken");
+const index_1 = require("../../models/index");
+const { User } = index_1.models;
 exports.default = (app) => {
     const BASE = '/users';
+    const secret = "adekmaestro";
     app.get(BASE, (req, res) => {
         User.findAll({
             attributes: {
@@ -27,9 +29,12 @@ exports.default = (app) => {
             if (user) {
                 let pass_equal = bcrypt.compare(req.body.password, user.password).then(same => {
                     if (same) {
+                        var token = jwt.sign({ user: user.id }, secret, { expiresIn: '24hr' });
+                        let str = "Hello";
                         res.json({
                             status: 200,
-                            text: 'Passwords match.'
+                            text: typeof str,
+                            token: token
                         });
                     }
                     else {
