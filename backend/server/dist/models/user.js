@@ -41,7 +41,5 @@ module.exports = (sequelize, DataTypes, bcrypt) => {
             });
         }
     });
-    User.associate = function (models) {
-    };
     return User;
 };
