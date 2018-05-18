@@ -47,7 +47,12 @@ module.exports = (sequelize, DataTypes, bcrypt) => {
     User.associate = function (models) {
         models.User.hasMany(models.Incident, {
             foreignKey: 'userId',
-            as: 'incidents'
+            as: 'createdincidents'
+        });
+
+        models.User.hasMany(models.Incident, {
+            foreignKey: 'trackerId',
+            as: 'trackedincidents'
         });
     }
 

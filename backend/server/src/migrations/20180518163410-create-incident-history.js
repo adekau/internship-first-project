@@ -8,6 +8,9 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
+            incidentId: {
+                type: Sequelize.INTEGER
+            },
             revision: {
                 type: Sequelize.INTEGER
             },

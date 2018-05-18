@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
 
     Incident.associate = function (models) {
         models.Incident.belongsTo(models.User, { as: 'user' });
-        //TODO: Add foriegn key for lastHistoryId once that model is created.
+        models.Incident.belongsTo(models.User, { as: 'tracker' });
+        models.Incident.hasMany(models.IncidentHistory, { foreignKey: 'incidentId', as: 'incidenthistory' })
     }
 
     return Incident;

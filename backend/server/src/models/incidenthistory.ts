@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
         classification: DataTypes.ENUM('security', 'major', 'minor'),
         resolution: DataTypes.STRING,
         cafReference: DataTypes.STRING
-    }, {});
+    }, {
+        freezeTableName: true,
+        tableName: 'incidenthistory'
+    });
     IncidentHistory.associate = function (models) {
         models.IncidentHistory.belongsTo(models.Incident, {
             as: 'incident'

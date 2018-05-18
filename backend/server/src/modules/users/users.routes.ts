@@ -21,7 +21,11 @@ export default (app: express.Express): void => {
             include: [
                 {
                     model: Incident,
-                    as: 'incidents'
+                    as: 'createdincidents'
+                },
+                {
+                    model: Incident,
+                    as: 'trackedincidents'
                 }
             ],
             attributes: {
