@@ -38,7 +38,7 @@ export default (app: express.Express): void => {
   });
 
   // GET /users/:id/incidents
-  app.get(BASE + '/:id/incidents', (req: express.Request, res: express.Response) => {
+  app.get(BASE + '/:id/incidents', auth.verifyToken, (req: express.Request, res: express.Response) => {
     if (req.params.id && isNumber(+req.params.id)) {
       User.findOne({
         where: {

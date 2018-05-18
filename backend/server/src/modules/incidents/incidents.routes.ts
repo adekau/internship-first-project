@@ -2,14 +2,16 @@ import * as express from 'express';
 import { Sequelize } from 'sequelize';
 import { models } from '../../models/index'
 import { isNumber } from 'util';
+import { AuthMiddleware } from '../../middleware';
 
 const { User, Incident } = models;
+const auth = new AuthMiddleware();
 
 export default (app: express.Express): void => {
   const BASE = '/incidents';
 
   // GET /incidents
-  app.get(BASE, (req: express.Request, res: express.Response) => {
+  app.get(BASE, auth.verifyToken, (req: express.Request, res: express.Response) => {
     Incident.findAll({
       include: [{
         model: User,
@@ -25,7 +27,7 @@ export default (app: express.Express): void => {
   });
 
   // POST /incidents
-  app.post(BASE, (req: express.Request, res: express.Response) => {
+  app.post(BASE, auth.verifyToken, (req: express.Request, res: express.Response) => {
     Incident.create({
       userId: req.body.userId,
       trackerId: req.body.trackerId,
@@ -47,7 +49,7 @@ export default (app: express.Express): void => {
   });
 
   // GET /incidents/:id
-  app.get(BASE + '/:id', (req: express.Request, res: express.Response) => {
+  app.get(BASE + '/:id', auth.verifyToken, (req: express.Request, res: express.Response) => {
     if (req.params.id && isNumber(+req.params.id)) {
       models.Incident.findOne({
         where: { id: req.params.id },
