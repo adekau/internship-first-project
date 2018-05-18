@@ -8,7 +8,7 @@ const { User, Incident, IncidentHistory } = models;
 const auth = new AuthMiddleware();
 
 export default (app: express.Express): void => {
-    const BASE = '/incidents';
+    const BASE = '/api/incidents';
 
     // GET /incidents
     app.get(BASE, auth.verifyToken, (req: express.Request, res: express.Response) => {
@@ -138,5 +138,28 @@ export default (app: express.Express): void => {
                 text: `Incident with id: ${req.params.id} not found.`
             });
         }
+    });
+
+    // PUT /incidents/:id
+    // Will need to create a NEW incidenthistory instance, and update the incident lastHistoryId.
+    app.put(BASE + '/:id', auth.verifyToken, (req: express.Request, res: express.Response) => {
+        models.sequelize.transaction({
+            isolationLevel: models.Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE
+        }).then(function (t) {
+            return IncidentHistory.create({
+                name: req.body.name,
+                incidentId: null,
+                type: req.body.type,
+                revision: req.body.revision + 1,
+                description: req.body.description,
+                cost: req.body.cost,
+                classification: req.body.classification,
+                resolution: req.body.resolution,
+                cafReference: req.body.cafReference
+            }, { transaction: t })
+                .then(function(history) {
+                    //
+                });
+        });
     });
 }

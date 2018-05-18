@@ -12,7 +12,7 @@ const { User, Incident } = models;
 const auth = new AuthMiddleware();
 
 export default (app: express.Express): void => {
-    const BASE = '/users';
+    const BASE = '/api/users';
 
     // add user routes
     app.get(BASE, auth.verifyToken, (req: express.Request, res: express.Response) => {

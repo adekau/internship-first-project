@@ -8,7 +8,7 @@ const { User, Incident, IncidentHistory } = models;
 const auth = new AuthMiddleware();
 
 export default (app: express.Express): void => {
-    const BASE = '/incidenthistory';
+    const BASE = '/api/incidenthistory';
 
     // GET /incidenthistory
     app.get(BASE, auth.verifyToken, (req: express.Request, res: express.Response) => {
