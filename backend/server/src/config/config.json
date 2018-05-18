@@ -1,23 +1,23 @@
 {
-  "development": {
-    "username": "Alex",
-    "password": null,
-    "database": "incidents",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  },
-  "test": {
-    "username": "Alex",
-    "password": null,
-    "database": "incidents",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  },
-  "production": {
-    "username": "Alex",
-    "password": null,
-    "database": "incidents",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  }
+    "development": {
+        "username": "Alex",
+        "password": null,
+        "database": "incidents",
+        "host": "127.0.0.1",
+        "dialect": "postgres"
+    },
+    "test": {
+        "username": "Alex",
+        "password": null,
+        "database": "incidents",
+        "host": "127.0.0.1",
+        "dialect": "postgres"
+    },
+    "production": {
+        "username": "Alex",
+        "password": null,
+        "database": "incidents",
+        "host": "127.0.0.1",
+        "dialect": "postgres"
+    }
 }

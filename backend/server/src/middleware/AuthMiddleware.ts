@@ -22,16 +22,16 @@ export class AuthMiddleware {
         }
 
         jwt.verify(token, secret, (err, decoded: any) => {
-          if (err) {
-            return res.status(500).json({
-              status: 500,
-              auth: false,
-              text: 'Failed to verify authentication token.'
-            });
-          }
+            if (err) {
+                return res.status(500).json({
+                    status: 500,
+                    auth: false,
+                    text: 'Failed to verify authentication token.'
+                });
+            }
 
-          req.userId = decoded.id;
-          next();
+            req.userId = decoded.id;
+            next();
         });
     }
 
