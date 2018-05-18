@@ -41,15 +41,39 @@ export default (app: express.Express): void => {
 
     });
 
-    // GET /users/:id/incidents
-    app.get(BASE + '/:id/incidents', auth.verifyToken, (req: express.Request, res: express.Response) => {
+    // GET /users/:id/createdincidents
+    app.get(BASE + '/:id/createdincidents', auth.verifyToken, (req: express.Request, res: express.Response) => {
         if (req.params.id && isNumber(+req.params.id)) {
             User.findOne({
                 where: {
                     id: req.params.id
                 }
             }).then(user => {
-                user.getIncidents({
+                user.getCreatedincidents({
+                    attributes: {
+                        exclude: ['userId', 'trackerId', 'lastHistoryId']
+                    }
+                }).then(incidents => {
+                    res.json(incidents);
+                });
+            });
+        } else {
+            res.json({
+                status: 404,
+                text: `Incident with id: ${req.params.id} not found.`
+            });
+        }
+    });
+
+    // GET /users/:id/trackedincidents
+    app.get(BASE + '/:id/trackedincidents', auth.verifyToken, (req: express.Request, res: express.Response) => {
+        if (req.params.id && isNumber(+req.params.id)) {
+            User.findOne({
+                where: {
+                    id: req.params.id
+                }
+            }).then(user => {
+                user.getTrackedincidents({
                     attributes: {
                         exclude: ['userId', 'trackerId', 'lastHistoryId']
                     }
