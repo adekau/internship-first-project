@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt';
 import * as modules from './modules';
 import * as bodyParser from 'body-parser';
 import * as db from './database';
+
 const app: express.Express = express();
 
 // Middleware

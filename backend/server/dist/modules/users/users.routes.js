@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const middleware_1 = require("../../middleware");
 const index_1 = require("../../models/index");
 const util_1 = require("util");
 const { User, Incident } = index_1.models;
+const auth = new middleware_1.AuthMiddleware();
 exports.default = (app) => {
     const BASE = '/users';
-    const secret = "adekmaestro";
-    app.get(BASE, (req, res) => {
+    app.get(BASE, auth.verifyToken, (req, res) => {
         User.findAll({
             include: [
                 {
@@ -59,8 +59,7 @@ exports.default = (app) => {
             if (user) {
                 let pass_equal = bcrypt.compare(req.body.password, user.password).then(same => {
                     if (same) {
-                        var token = jwt.sign({ user: user.id }, secret, { expiresIn: '24hr' });
-                        let str = "Hello";
+                        let token = auth.generateToken(user);
                         res.json({
                             status: 200,
                             text: "Authenticated.",

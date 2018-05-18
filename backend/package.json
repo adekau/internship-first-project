@@ -9,7 +9,7 @@
     "compile": "npm run clear && tsc -p server/src",
     "clear": "rm -rf server/dist"
   },
-  "author": "Tyler Vander Maas",
+  "author": "Alex Dekau",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^2.0.1",
@@ -21,10 +21,12 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^2.0.0",
-    "@types/jsonwebtoken": "^7.2.7",
-    "@types/sequelize": "^4.27.17",
+    "@types/config": "0.0.34",
     "@types/express": "^4.11.1",
+    "@types/jsonwebtoken": "^7.2.7",
     "@types/node": "^9.6.16",
+    "@types/sequelize": "^4.27.17",
+    "config": "^1.30.0",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
     "gulp-tslint": "^8.1.3",

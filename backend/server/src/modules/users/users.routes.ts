@@ -3,17 +3,19 @@ import * as express from 'express';
 import { Sequelize } from 'sequelize';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
+import { AuthMiddleware } from '../../middleware'
 import { models } from '../../models/index'
 import { isNumber } from 'util';
 
 // Local Constants
 const { User, Incident } = models;
+const auth = new AuthMiddleware();
 
 export default (app: express.Express): void => {
   const BASE = '/users';
-  const secret = "adekmaestro";
+
   // add user routes
-  app.get(BASE, (req: express.Request, res: express.Response) => {
+  app.get(BASE, auth.verifyToken, (req: express.Request, res: express.Response) => {
 
     User.findAll({
       include: [
@@ -73,8 +75,8 @@ export default (app: express.Express): void => {
         let pass_equal = bcrypt.compare(req.body.password, user.password).then(same => {
           if (same) {
             // Generate a JSON web token using jwt library.
-            var token = jwt.sign({ user: user.id }, secret, { expiresIn: '24hr' });
-            let str: any = "Hello";
+            let token = auth.generateToken(user);
+
             res.json({
               status: 200,
               text: "Authenticated.",
