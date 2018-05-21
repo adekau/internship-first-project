@@ -1,4 +1,6 @@
-module.exports = (sequelize, DataTypes, bcrypt) => {
+import * as bcrypt from 'bcrypt';
+
+module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
         firstName: DataTypes.STRING,
         lastName: DataTypes.STRING,

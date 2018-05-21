@@ -27,7 +27,7 @@ export default (app: express.Express): void => {
                 model: IncidentHistory,
                 as: 'incidenthistory',
                 attributes: {
-                    exclude: ['incidentId',]
+                    exclude: ['incidentId']
                 }
             }],
             attributes: {
@@ -145,21 +145,78 @@ export default (app: express.Express): void => {
     app.put(BASE + '/:id', auth.verifyToken, (req: express.Request, res: express.Response) => {
         models.sequelize.transaction({
             isolationLevel: models.Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE
-        }).then(function (t) {
-            return IncidentHistory.create({
-                name: req.body.name,
-                incidentId: null,
-                type: req.body.type,
-                revision: req.body.revision + 1,
-                description: req.body.description,
-                cost: req.body.cost,
-                classification: req.body.classification,
-                resolution: req.body.resolution,
-                cafReference: req.body.cafReference
-            }, { transaction: t })
-                .then(function(history) {
-                    //
+        })
+            .then(function (t) {
+                return IncidentHistory.create({
+                    name: req.body.name,
+                    incidentId: req.body.incidentId,
+                    type: req.body.type,
+                    revision: req.body.revision + 1,
+                    description: req.body.description,
+                    cost: req.body.cost,
+                    classification: req.body.classification,
+                    resolution: req.body.resolution,
+                    cafReference: req.body.cafReference
+                }, { transaction: t })
+                    .then(function (history) {
+                        history.getIncident({ transaction: t })
+                            .then(function (incident) {
+                                incident.lastHistoryId = history.id;
+                                incident.save({ transaction: t })
+                                    .then(_ => {
+                                        return t.commit()
+                                            .then(function () {
+                                                return res.status(200).json({
+                                                    status: 200,
+                                                    auth: true,
+                                                    text: `Successfully updated the incident with id ${incident.id}`
+                                                });
+                                            });
+                                    })
+                                    .catch(function (err) {
+                                        console.error(`Encountered an error updating incident (id: ${incident.id}):`, err);
+                                        return t.rollback()
+                                            .then(function () {
+                                                return res.status(400).json({
+                                                    status: 400,
+                                                    auth: true,
+                                                    text: `Encountered an error updating incident. ${err}`
+                                                });
+                                            });
+                                    });
+                            })
+                            .catch(function (err) {
+                                console.error(`Encountered an error creating incident history:`, err);
+                                return t.rollback()
+                                    .then(function () {
+                                        return res.status(400).json({
+                                            status: 400,
+                                            auth: true,
+                                            text: `Encountered an error updating incident. ${err}`
+                                        });
+                                    });
+                            });
+                    })
+                    .catch(function (err) {
+                        console.error(`Encountered an error creating incident history:`, err);
+                        return t.rollback()
+                            .then(function () {
+                                return res.status(400).json({
+                                    status: 400,
+                                    auth: true,
+                                    text: `Encountered an error updating incident. ${err}`
+                                });
+                            });
+                    });
+            })
+            .catch(function (err) {
+                console.error(`Encountered an error creating incident history:`, err);
+                return res.status(500).json({
+                    status: 500,
+                    auth: true,
+                    text: `A database error occurred updating the incident. Please try again.`
                 });
-        });
+
+            });
     });
 }
