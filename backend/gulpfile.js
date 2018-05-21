@@ -15,7 +15,8 @@ gulp.task('nodemon', () => {
 });
 
 gulp.task('copyconfig', () => {
-  gulp.src(['server/src/config/**/*']).pipe(gulp.dest('server/dist/config'));
+    gulp.src(['server/src/config/**/*'])
+        .pipe(gulp.dest('server/dist/config'));
 });
 
 gulp.task('compile', ['copyconfig'], () => {
@@ -33,3 +34,8 @@ gulp.task('tslint', () =>
         }))
         .pipe(tslint.report())
 );
+
+gulp.task('test', () => {
+    gulp.src('server/src/test/**/*')
+        .pipe(gulp.dest('server/dist/test'));
+});
