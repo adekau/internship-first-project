@@ -13,7 +13,7 @@ import 'rxjs/add/observable/throw';
 */
 @Injectable()
 export class RestProvider {
-    private apiUrl = 'http://localhost:3000/api'
+    private apiUrl = 'http://localhost:3000/api';
     private accessToken: any;
 
     static get parameters() {
@@ -61,15 +61,6 @@ export class RestProvider {
                 catchError(this.handleError)
             );
 
-    }
-
-    authenticate(email, password): Promise<any> {
-        let body: {} = {
-            email: email,
-            password: password
-        };
-
-        return this.http.post(this.apiUrl + '/users/authenticate', body).toPromise();
     }
 
 }

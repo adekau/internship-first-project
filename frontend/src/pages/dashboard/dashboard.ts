@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
+import { AuthProvider } from '../../providers/auth/auth';
+import { LoginPage } from '../login/login';
 
 @Component({
     selector: 'page-dashboard',
@@ -9,17 +11,18 @@ import { RestProvider } from '../../providers/rest/rest';
 export class DashboardPage {
     data: any;
 
-    constructor(public navCtrl: NavController, public rest: RestProvider) {
-
-    }
+    constructor(
+        public navCtrl: NavController,
+        public rest: RestProvider,
+        private auth: AuthProvider
+    ) { }
 
     async ionViewDidLoad() {
-        // let data = await this.authenticate();
-        // this.getIncidents(data.token);
-    }
-
-    async authenticate() {
-        // return await this.rest.authenticate();
+        if (this.auth.isLoggedIn()) {
+            this.getIncidents(localStorage.getItem('access-token'));
+        } else {
+            this.navCtrl.setRoot(LoginPage);
+        }
     }
 
     getIncidents(token) {

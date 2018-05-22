@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { RestProvider } from '../../providers/rest/rest';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { AuthProvider } from '../../providers/auth/auth';
+import { DashboardPage } from '../dashboard/dashboard';
 
 /**
  * Generated class for the LoginPage page.
@@ -20,14 +21,24 @@ export class LoginPage {
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
-        private rest: RestProvider) { }
+        private auth: AuthProvider,
+        private toast: ToastController) { }
 
-    ionViewDidLoad() { }
+    ionViewDidLoad() {
+        if (this.auth.isLoggedIn()) {
+            this.navCtrl.setRoot(DashboardPage);
+        }
+    }
 
     loginForm() {
-        this.rest.authenticate(this.loginInfo.email, this.loginInfo.password)
+        this.auth.authenticate(this.loginInfo.email, this.loginInfo.password)
             .then(data => {
-                console.log(data);
+                this.navCtrl.setRoot(DashboardPage);
+                this.toast.create({
+                    message: 'Successfully logged in!',
+                    duration: 3000,
+                    position: 'top'
+                }).present();
             });
     }
 
