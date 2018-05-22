@@ -25,7 +25,7 @@ export default (app: express.Express): void => {
             },
             {
                 model: IncidentHistory,
-                as: 'incidenthistory',
+                as: 'latest',
                 attributes: {
                     exclude: ['incidentId']
                 }

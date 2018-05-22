@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     Incident.associate = function (models) {
         models.Incident.belongsTo(models.User, { as: 'user' });
         models.Incident.belongsTo(models.User, { as: 'tracker' });
-        models.Incident.hasMany(models.IncidentHistory, { foreignKey: 'incidentId', as: 'incidenthistory' })
+        models.Incident.hasMany(models.IncidentHistory, { foreignKey: 'incidentId', as: 'incidenthistory' });
+        models.Incident.belongsTo(models.IncidentHistory, { foreignKey: 'lastHistoryId', as: 'latest'});
     }
 
     return Incident;
