@@ -5,9 +5,11 @@ import * as bodyParser from 'body-parser';
 import * as db from './database';
 
 const app: express.Express = express();
+const cors = require('cors');
 
 // Middleware
 app.use(bodyParser.json());
+app.use(cors({ credentials: true, origin: true }));
 
 // routes
 const userController = new modules.UserController(app);
