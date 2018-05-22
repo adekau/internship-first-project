@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { map, catchError } from 'rxjs/operators';
-import { Storage } from '@ionic/storage';
 import 'rxjs/add/observable/throw';
 
 /*
@@ -14,7 +13,6 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class RestProvider {
     private apiUrl = 'http://localhost:3000/api';
-    private accessToken: any;
 
     constructor(public http: HttpClient) { }
 
