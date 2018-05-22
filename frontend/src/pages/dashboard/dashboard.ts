@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 import { AuthProvider } from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
+import { IncidentPage } from '../incident/incident';
 
 @Component({
     selector: 'page-dashboard',
@@ -25,8 +26,11 @@ export class DashboardPage {
         }
     }
 
-    goToIncident(id) {
-        console.log('Navigating to incident #', id);
+    goToIncident(i) {
+        console.log('Navigating to incident #', i);
+        this.navCtrl.push(IncidentPage, {
+            data: this.data[i]
+        });
     }
 
     getIncidents(token) {

@@ -12,8 +12,8 @@
 
     <ion-grid *ngIf="data">
         <ion-row>
-            <ion-col col-12 col-sm col-md *ngFor="let d of data">
-                <ion-card (click)="goToIncident(d.id)">
+            <ion-col col-12 col-sm col-md *ngFor="let d of data; let i = index" [attr.data-index]="i">
+                <ion-card (click)="goToIncident(i)">
                     <ion-card-header>
                         <ion-item>
                             <ion-icon name="alert" item-start large *ngIf="d.latest.classification === 'major'"></ion-icon>
