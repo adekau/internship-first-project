@@ -16,11 +16,7 @@ export class RestProvider {
     private apiUrl = 'http://localhost:3000/api';
     private accessToken: any;
 
-    static get parameters() {
-        return [[HttpClient], [Storage]];
-    }
-
-    constructor(public http: HttpClient, public storage: Storage) { }
+    constructor(public http: HttpClient) { }
 
     private handleError(error: Response | any) {
         let errMsg: string;
@@ -39,18 +35,7 @@ export class RestProvider {
         return body || {};
     }
 
-    private storeAuth(res: Response) {
-        let body: any = res;
-        if (body.status === 200 && body.auth) {
-            this.storage.ready().then(() => {
-                this.storage.set('access-token', body.token);
-            });
-        }
-        return body || {};
-    }
-
     getIncidents(token): Observable<{}> {
-
         return this.http.get<{}>(this.apiUrl + '/incidents', {
             headers: {
                 'x-access-token': token
@@ -62,5 +47,4 @@ export class RestProvider {
             );
 
     }
-
 }
