@@ -8,26 +8,43 @@
 </ion-header>
 
 <ion-content padding>
-    <h3>Ionic Menu Starter</h3>
+    <h3 text-center>Incidents</h3>
 
     <ion-grid *ngIf="data">
-        <ion-row header>
-            <ion-col>#</ion-col>
-            <ion-col>Name</ion-col>
-            <ion-col>Date</ion-col>
-            <ion-col>Description</ion-col>
-            <ion-col>Severity</ion-col>
-            <ion-col>Type</ion-col>
-            <ion-col>Cost</ion-col>
-        </ion-row>
-        <ion-row *ngFor = "let d of data">
-            <ion-col>{{ d.id }}</ion-col>
-            <ion-col>{{ d.latest.name }}</ion-col>
-            <ion-col>{{ d.createdAt | date : 'dd/MM/yyyy hh:mm:ss' }}</ion-col>
-            <ion-col>{{ d.latest.description }}</ion-col>
-            <ion-col>{{ d.latest.classification }}</ion-col>
-            <ion-col>{{ d.latest.type }}</ion-col>
-            <ion-col>{{ d.latest.cost }}</ion-col>
+        <ion-row>
+            <ion-col col-12 col-sm col-md *ngFor="let d of data">
+                <ion-card (click)="goToIncident(d.id)">
+                    <ion-card-header>
+                        <ion-item>
+                            <ion-icon name="alert" item-start large *ngIf="d.latest.classification === 'major'"></ion-icon>
+                            <ion-icon name="warning" item-start large *ngIf="d.latest.classification === 'minor'"></ion-icon>
+                            <ion-icon name="nuclear" item-start large *ngIf="d.latest.classification === 'security'"></ion-icon>
+                            <h2>{{ d.latest.name }}</h2>
+                            <p>Reported by {{ d.user.firstName }} {{ d.user.lastName }} on {{ d.createdAt | date: 'dd/MM/yyyy hh:mm a' }}.</p>
+                        </ion-item>
+                    </ion-card-header>
+
+                    <ion-card-content>
+                        <span>{{ d.latest.description }}</span>
+                    </ion-card-content>
+
+                    <ion-card-content>
+                        <ion-row>
+                            <ion-col class="icon-info">
+                                <ion-icon name="logo-usd"></ion-icon>
+                                <div>{{ d.latest.cost }}</div>
+                            </ion-col>
+                            <ion-col class="icon-info">
+                                <ion-icon name="checkmark-circle"></ion-icon>
+                                <div>{{ d.latest.resolution ? "Yes" : "No" }}</div>
+                            </ion-col>
+                            <ion-col>
+                                <ion-note>{{ d.latest.type == "information" ? "Information" : "Non-Information" }}</ion-note>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
         </ion-row>
     </ion-grid>
 

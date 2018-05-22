@@ -17,12 +17,16 @@ export class DashboardPage {
         private auth: AuthProvider
     ) { }
 
-    async ionViewDidLoad() {
+    ionViewDidLoad() {
         if (this.auth.isLoggedIn()) {
             this.getIncidents(localStorage.getItem('access-token'));
         } else {
             this.navCtrl.setRoot(LoginPage);
         }
+    }
+
+    goToIncident(id) {
+        console.log('Navigating to incident #', id);
     }
 
     getIncidents(token) {
