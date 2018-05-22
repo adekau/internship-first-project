@@ -60,6 +60,7 @@ export default (app: express.Express): void => {
         } else {
             res.json({
                 status: 404,
+                auth: true,
                 text: `Incident with id: ${req.params.id} not found.`
             });
         }
@@ -84,6 +85,7 @@ export default (app: express.Express): void => {
         } else {
             res.json({
                 status: 404,
+                auth: true,
                 text: `Incident with id: ${req.params.id} not found.`
             });
         }
@@ -108,13 +110,15 @@ export default (app: express.Express): void => {
                         res.json({
                             status: 200,
                             text: "Authenticated.",
+                            auth: true,
                             token: token
-                        })
+                        });
                     } else {
                         res.json({
                             status: 401,
+                            auth: false,
                             text: 'Passwords do not match.'
-                        })
+                        });
                     }
                 });
             } else {
