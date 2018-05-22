@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { ListPage } from '../pages/list/list';
+import { LoginPage } from '../pages/login/login';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -16,7 +17,8 @@ import { IonicStorageModule } from '@ionic/storage';
   declarations: [
     MyApp,
     DashboardPage,
-    ListPage
+    ListPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import { IonicStorageModule } from '@ionic/storage';
   entryComponents: [
     MyApp,
     DashboardPage,
-    ListPage
+    ListPage,
+    LoginPage
   ],
   providers: [
     StatusBar,

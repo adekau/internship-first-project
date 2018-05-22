@@ -10,7 +10,7 @@
 <ion-content padding>
     <h3>Ionic Menu Starter</h3>
 
-    <ion-grid>
+    <ion-grid *ngIf="data">
         <ion-row header>
             <ion-col>#</ion-col>
             <ion-col>Name</ion-col>
@@ -30,6 +30,9 @@
             <ion-col>{{ d.latest.cost }}</ion-col>
         </ion-row>
     </ion-grid>
+
+    <span *ngIf="!data">No data to display.</span>
+    <br>
 
     <button ion-button secondary menuToggle>Toggle Menu</button>
 </ion-content>

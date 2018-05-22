@@ -63,10 +63,10 @@ export class RestProvider {
 
     }
 
-    authenticate(): Promise<any> {
+    authenticate(email, password): Promise<any> {
         let body: {} = {
-            email: 'alexander.j.dekau@wmich.edu',
-            password: 'test12'
+            email: email,
+            password: password
         };
 
         return this.http.post(this.apiUrl + '/users/authenticate', body).toPromise();

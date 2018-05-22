@@ -14,12 +14,12 @@ export class DashboardPage {
     }
 
     async ionViewDidLoad() {
-        let data = await this.authenticate();
-        this.getIncidents(data.token);
+        // let data = await this.authenticate();
+        // this.getIncidents(data.token);
     }
 
     async authenticate() {
-        return await this.rest.authenticate();
+        // return await this.rest.authenticate();
     }
 
     getIncidents(token) {
