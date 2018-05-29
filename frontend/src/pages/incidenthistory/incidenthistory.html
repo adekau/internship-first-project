@@ -6,13 +6,17 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>incidenthistory</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Incident History</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+    <button ion-button block *ngFor="let d of data" (click)="viewRevision(d.revision)">
+        Revision {{ d.revision }} on {{ d.createdAt | date }}
+    </button>
 
 </ion-content>

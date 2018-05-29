@@ -87,4 +87,28 @@ export class RestProvider {
                 });
         });
     }
+
+    getHistory(token, incidentId): Observable<{}> {
+        return this.http.get(`${this.apiUrl}/incidenthistory/${incidentId}`, {
+            headers: {
+                'x-access-token': token
+            }
+        })
+            .pipe(
+                map(this.extractData),
+                catchError(this.handleError)
+            );
+    }
+
+    getIncident(token, incidentId): Observable<{}> {
+        return this.http.get(`${this.apiUrl}/incidents/${incidentId}`, {
+            headers: {
+                'x-access-token': token
+            }
+        })
+            .pipe(
+                map(this.extractData),
+                catchError(this.handleError)
+            );
+    }
 }

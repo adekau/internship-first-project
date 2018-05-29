@@ -13,7 +13,18 @@ export default (app: express.Express): void => {
     // GET /incidenthistory
     app.get(BASE, auth.verifyToken, (req: express.Request, res: express.Response) => {
         IncidentHistory.findAll().then(items => {
-            res.status(200).json(items);
+            return res.status(200).json(items);
         })
+    });
+
+    app.get(BASE + '/:id', auth.verifyToken, (req: express.Request, res: express.Response) => {
+        IncidentHistory.findAll({
+            where: {
+                incidentId: req.params.id
+            }
+        })
+            .then(items => {
+                return res.status(200).json(items);
+            });
     });
 }

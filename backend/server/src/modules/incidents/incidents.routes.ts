@@ -127,6 +127,13 @@ export default (app: express.Express): void => {
                         attributes: {
                             exclude: ['password', 'createdAt', 'updatedAt']
                         }
+                    },
+                    {
+                        as: 'tracker',
+                        model: User,
+                        attributes: {
+                            exclude: ['password', 'createdAt', 'updatedAt']
+                        }
                     }
                 ],
                 attributes: {
