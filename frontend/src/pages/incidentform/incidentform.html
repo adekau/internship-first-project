@@ -7,14 +7,15 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>Create New Incident</ion-title>
+        <ion-title *ngIf="type === 'edit'">Edit Incident</ion-title>
+        <ion-title *ngIf="type === 'create'">Create New Incident</ion-title>
     </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <form (ngSubmit)="createIncident()">
+    <form (ngSubmit)="submitForm()">
         <ion-list>
 
             <ion-item>
@@ -68,7 +69,7 @@
 
         </ion-list>
         <div padding>
-            <button ion-button type="submit" block>Create</button>
+            <button ion-button type="submit" block>{{ type | titlecase }}</button>
         </div>
     </form>
 </ion-content>
