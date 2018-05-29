@@ -72,4 +72,19 @@ export class RestProvider {
                 });
         });
     }
+
+    async updateIncident(token, incident: any): Promise<{}> {
+        return new Promise((resolve, reject) => {
+            this.http.put(`${this.apiUrl}/incidents/${incident.incidentId}`, incident, {
+                headers: {
+                    'x-access-token': token
+                }
+            })
+                .subscribe((res: any) => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                });
+        });
+    }
 }
