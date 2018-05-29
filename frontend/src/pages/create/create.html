@@ -6,13 +6,69 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Create New Incident</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Create New Incident</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+    <form (ngSubmit)="createIncident()">
+        <ion-list>
 
+            <ion-item>
+                <ion-label>Name</ion-label>
+                <ion-input type="text" name="name" [(ngModel)]="incident.name" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Tracker</ion-label>
+                <ion-select name="trackerId" [(ngModel)]="incident.trackerId" required>
+                    <ion-option *ngFor="let t of trackers" [value]="t.id">{{t.firstName}} {{t.lastName}}</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Type</ion-label>
+                <ion-select name="type" [(ngModel)]="incident.type" required>
+                    <ion-option value="information">Information</ion-option>
+                    <ion-option value="noninformation">Non-Information</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Classification</ion-label>
+                <ion-select name="classification" [(ngModel)]="incident.classification" required>
+                    <ion-option value="major">Major</ion-option>
+                    <ion-option value="minor">Minor</ion-option>
+                    <ion-option value="security">Security</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Cost</ion-label>
+                <ion-input required type="number" name="cost" value="0" [(ngModel)]="incident.cost"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>CAF Reference</ion-label>
+                <ion-input required type="text" name="cafReference" [(ngModel)]="incident.cafReference"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Description</ion-label>
+                <ion-textarea rows="4" required name="description" [(ngModel)]="incident.description"></ion-textarea>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Resolution</ion-label>
+                <ion-textarea rows="4" name="resolution" [(ngModel)]="incident.resolution"></ion-textarea>
+            </ion-item>
+
+        </ion-list>
+        <div padding>
+            <button ion-button type="submit" block>Create</button>
+        </div>
+    </form>
 </ion-content>
