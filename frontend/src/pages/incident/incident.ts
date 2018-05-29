@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { IncidentFormPage } from '../incidentform/incidentform';
+import { IncidentHistoryPage } from '../incidenthistory/incidenthistory';
 
 /**
  * Generated class for the IncidentPage page.
@@ -45,10 +46,11 @@ export class IncidentPage {
                     }
                 },
                 {
-                    text: 'Delete',
-                    role: 'destructive',
+                    text: 'History',
                     handler: () => {
-                        console.log('Delete clicked');
+                        this.navCtrl.push(IncidentHistoryPage, {
+                            incidentId: this.data.id
+                        });
                     }
                 },
                 {

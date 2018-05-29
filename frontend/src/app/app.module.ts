@@ -8,6 +8,7 @@ import { DashboardPage } from '../pages/dashboard/dashboard';
 import { LoginPage } from '../pages/login/login';
 import { IncidentPage } from '../pages/incident/incident';
 import { IncidentFormPage } from '../pages/incidentform/incidentform';
+import { IncidentHistoryPage } from '../pages/incidenthistory/incidenthistory';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,7 +21,8 @@ import { AuthProvider } from '../providers/auth/auth';
     DashboardPage,
     LoginPage,
     IncidentPage,
-    IncidentFormPage
+    IncidentFormPage,
+    IncidentHistoryPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import { AuthProvider } from '../providers/auth/auth';
     DashboardPage,
     LoginPage,
     IncidentPage,
-    IncidentFormPage
+    IncidentFormPage,
+    IncidentHistoryPage
   ],
   providers: [
     StatusBar,
