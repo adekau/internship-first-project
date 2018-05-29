@@ -20,7 +20,7 @@
                             <ion-icon name="warning" item-start large *ngIf="d.latest.classification === 'minor'"></ion-icon>
                             <ion-icon name="nuclear" item-start large *ngIf="d.latest.classification === 'security'"></ion-icon>
                             <h2>{{ d.latest.name }}</h2>
-                            <p>Reported by {{ d.user.firstName }} {{ d.user.lastName }} on {{ d.createdAt | date: 'dd/MM/yyyy hh:mm a' }}.</p>
+                            <p>Reported by {{ d.user.firstName }} {{ d.user.lastName }} on {{ d.createdAt | date: 'MM/dd/yyyy hh:mm a' }}.</p>
                         </ion-item>
                     </ion-card-header>
 
@@ -47,9 +47,11 @@
             </ion-col>
         </ion-row>
     </ion-grid>
+    <ion-fab bottom right>
+        <button ion-fab (click)="createNewIncident()">
+            <ion-icon name="add"></ion-icon>
+        </button>
+    </ion-fab>
 
     <span *ngIf="!data">No data to display.</span>
-    <br>
-
-    <!-- <button ion-button secondary menuToggle>Toggle Menu</button> -->
 </ion-content>

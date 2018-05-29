@@ -1,3 +1,8 @@
-page-incident {
+ion-col.title {
+    background-color: rgb(255, 242, 204);
+}
 
+ion-col.description, ion-col.moreinfo, ion-col.resolution, ion-col.caf {
+    background-color: rgb(239, 239, 239);
+    border-top: 1px solid rgb(200,200,200);
 }

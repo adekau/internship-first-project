@@ -41,4 +41,8 @@ export class DashboardPage {
             );
     }
 
+    createNewIncident() {
+        console.log('Create clicked');
+    }
+
 }
