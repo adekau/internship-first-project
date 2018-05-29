@@ -4,7 +4,7 @@ import { RestProvider } from '../../providers/rest/rest';
 import { AuthProvider } from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
 import { IncidentPage } from '../incident/incident';
-import { CreatePage } from '../create/create';
+import { IncidentFormPage } from '../incidentform/incidentform';
 
 @Component({
     selector: 'page-dashboard',
@@ -44,7 +44,7 @@ export class DashboardPage {
     }
 
     createNewIncident() {
-        this.navCtrl.push(CreatePage);
+        this.navCtrl.push(IncidentFormPage);
     }
 
     refresh() {

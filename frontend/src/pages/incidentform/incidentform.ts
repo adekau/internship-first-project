@@ -12,11 +12,11 @@ import { RestProvider } from '../../providers/rest/rest';
 
 @IonicPage()
 @Component({
-    selector: 'page-create',
-    templateUrl: 'create.html',
+    selector: 'page-incidentform',
+    templateUrl: 'incidentform.html',
 })
 
-export class CreatePage {
+export class IncidentFormPage {
     private allowedToLeave: boolean = false;
     private user: any = {};
     private trackers: any;
