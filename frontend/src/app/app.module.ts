@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 import { DashboardPage } from '../pages/dashboard/dashboard';
-import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { IncidentPage } from '../pages/incident/incident';
 import { IncidentFormPage } from '../pages/incidentform/incidentform';
@@ -19,7 +18,6 @@ import { AuthProvider } from '../providers/auth/auth';
   declarations: [
     MyApp,
     DashboardPage,
-    ListPage,
     LoginPage,
     IncidentPage,
     IncidentFormPage
@@ -33,7 +31,6 @@ import { AuthProvider } from '../providers/auth/auth';
   entryComponents: [
     MyApp,
     DashboardPage,
-    ListPage,
     LoginPage,
     IncidentPage,
     IncidentFormPage
