@@ -32,7 +32,10 @@ export default (app: express.Express): void => {
             }],
             attributes: {
                 exclude: ['userId', 'trackerId', 'lastHistoryId']
-            }
+            },
+            order: [
+                ['updatedAt', 'DESC']
+            ]
         }).then(data => {
             res.status(200).json(data);
         });
