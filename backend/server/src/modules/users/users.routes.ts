@@ -35,10 +35,29 @@ export default (app: express.Express): void => {
                     'updatedAt',
                 ]
             }
-        }).then(data => {
-            res.json(data);
-        });
+        })
+            .then(data => {
+                res.status(200).json(data);
+            });
 
+    });
+
+    app.get(BASE + '/trackers', auth.verifyToken, (req: express.Request, res: express.Response) => {
+        User.findAll({
+            where: {
+                role: 'tracker'
+            },
+            attributes: {
+                exclude: [
+                    'password',
+                    'createdAt',
+                    'updatedAt',
+                ]
+            }
+        })
+            .then(data => {
+                res.status(200).json(data);
+            })
     });
 
     // GET /users/:id/createdincidents
@@ -111,6 +130,13 @@ export default (app: express.Express): void => {
                             status: 200,
                             text: "Authenticated.",
                             auth: true,
+                            user: {
+                                id: user.id,
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                email: user.email,
+                                role: user.role
+                            },
                             token: token
                         });
                     } else {
