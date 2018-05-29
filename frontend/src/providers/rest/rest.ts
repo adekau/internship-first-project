@@ -45,4 +45,31 @@ export class RestProvider {
             );
 
     }
+
+    getTrackers(token): Observable<{}> {
+        return this.http.get<{}>(this.apiUrl + '/users/trackers', {
+            headers: {
+                'x-access-token': token
+            }
+        })
+            .pipe(
+                map(this.extractData),
+                catchError(this.handleError)
+            );
+    }
+
+    async createIncident(token, incident: any): Promise<{}> {
+        return new Promise((resolve, reject) => {
+            this.http.post(this.apiUrl + '/incidents', incident, {
+                headers: {
+                    'x-access-token': token
+                }
+            })
+                .subscribe((res: any) => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                });
+        });
+    }
 }
