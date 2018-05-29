@@ -4,6 +4,7 @@ import { RestProvider } from '../../providers/rest/rest';
 import { AuthProvider } from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
 import { IncidentPage } from '../incident/incident';
+import { CreatePage } from '../create/create';
 
 @Component({
     selector: 'page-dashboard',
@@ -11,6 +12,7 @@ import { IncidentPage } from '../incident/incident';
 })
 export class DashboardPage {
     data: any;
+    user: any = JSON.parse(localStorage.getItem('logged-in-user')) || {firstName: '', lastName: ''};
 
     constructor(
         public navCtrl: NavController,
@@ -42,7 +44,13 @@ export class DashboardPage {
     }
 
     createNewIncident() {
-        console.log('Create clicked');
+        this.navCtrl.push(CreatePage);
     }
 
+    refresh() {
+        if (this.auth.isLoggedIn()) {
+            this.data = undefined;
+            this.getIncidents(localStorage.getItem('access-token'));
+        }
+    }
 }
