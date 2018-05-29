@@ -29,7 +29,6 @@ export class DashboardPage {
     }
 
     goToIncident(i) {
-        console.log('Navigating to incident #', i);
         this.navCtrl.push(IncidentPage, {
             data: this.data[i]
         });
@@ -44,7 +43,9 @@ export class DashboardPage {
     }
 
     createNewIncident() {
-        this.navCtrl.push(IncidentFormPage);
+        this.navCtrl.push(IncidentFormPage, {
+            type: 'create'
+        });
     }
 
     refresh() {

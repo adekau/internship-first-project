@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { IncidentFormPage } from '../incidentform/incidentform';
 
 /**
  * Generated class for the IncidentPage page.
@@ -25,6 +26,10 @@ export class IncidentPage {
     }
 
     ionViewDidLoad() { }
+    ionViewWillEnter() {
+        console.log('will enter');
+        this.navParams.get('from');
+    }
 
     presentActionSheet() {
         let actionSheet = this.actionSheetCtrl.create({
@@ -33,7 +38,10 @@ export class IncidentPage {
                 {
                     text: 'Edit',
                     handler: () => {
-                        console.log('Edit clicked');
+                        this.navCtrl.push(IncidentFormPage, {
+                            type: 'edit',
+                            data: this.data
+                        });
                     }
                 },
                 {
