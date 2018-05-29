@@ -39,6 +39,13 @@ export class LoginPage {
                     duration: 3000,
                     position: 'top'
                 }).present();
+            })
+            .catch(err => {
+                this.toast.create({
+                    message: err.text,
+                    duration: 3000,
+                    position: 'top'
+                }).present();
             });
     }
 

@@ -22,8 +22,13 @@ export class AuthProvider {
         return new Promise((resolve, reject) => {
             this.http.post(this.apiUrl + '/users/authenticate', body)
                 .subscribe((res: any) => {
-                    localStorage.setItem('access-token', res.token);
-                    resolve(res);
+                    if (res.status === 200) {
+                        localStorage.setItem('access-token', res.token);
+                        localStorage.setItem('logged-in-user', JSON.stringify(res.user));
+                        resolve(res);
+                    } else {
+                        reject(res);
+                    }
                 }, err => {
                     reject(err);
                 });
@@ -35,6 +40,6 @@ export class AuthProvider {
     }
 
     logout(): void {
-        localStorage.removeItem('access-token');
+        localStorage.clear();
     }
 }
