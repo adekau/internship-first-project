@@ -10,6 +10,16 @@
 <ion-content padding>
     <h3 text-center>Incidents</h3>
 
+    <ion-row text-center class="dashboard-totals">
+        <ion-col>
+            <b>Total Incidents:</b> {{ total }} &nbsp;
+            <b>Open Incidents:</b> {{ open }} &nbsp;
+            <b>Major:</b> {{ major }} &nbsp;
+            <b>Minor:</b> {{ minor }} &nbsp;
+            <b>Security:</b> {{ security }}
+        </ion-col>
+    </ion-row>
+
     <ion-grid *ngIf="data">
         <ion-row>
             <ion-col col-12 col-sm col-md *ngFor="let d of data; let i = index" [attr.data-index]="i">

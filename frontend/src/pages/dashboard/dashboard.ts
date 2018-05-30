@@ -12,6 +12,11 @@ import { IncidentFormPage } from '../incidentform/incidentform';
 })
 export class DashboardPage {
     data: any;
+    total: number;
+    open: number;
+    major: number;
+    minor: number;
+    security: number;
     user: any = JSON.parse(localStorage.getItem('logged-in-user')) || {firstName: '', lastName: ''};
 
     constructor(
@@ -37,7 +42,30 @@ export class DashboardPage {
     getIncidents(token) {
         this.rest.getIncidents(token)
             .subscribe(
-                data => this.data = data,
+                data => {
+                    this.data = data;
+                    this.total = this.data.length;
+                    this.open = 0;
+                    this.major = 0;
+                    this.minor = 0;
+                    this.security = 0;
+
+                    this.data.forEach(element => {
+                        if (element.latest.resolution === "" || element.latest.resolution === null || element.latest.resolution === undefined) {
+                            this.open += 1;
+                        }
+                        if (element.latest.classification === "major") {
+                            this.major += 1;
+                        } else if (element.latest.classification === "minor") {
+                            this.minor += 1;
+                        } else if (element.latest.classification === "security") {
+                            this.security += 1;
+                        } else {
+                            // should NOT reach this branch
+                            console.error("There is an incident with an incorrect classification.");
+                        }
+                    });
+                },
                 err => console.error(err)
             );
     }

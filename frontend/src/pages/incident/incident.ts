@@ -17,6 +17,7 @@ import { IncidentHistoryPage } from '../incidenthistory/incidenthistory';
 })
 export class IncidentPage {
     data: any;
+    history: boolean;
 
     constructor(
         public navCtrl: NavController,
@@ -24,6 +25,7 @@ export class IncidentPage {
         public actionSheetCtrl: ActionSheetController
     ) {
         this.data = navParams.get('data');
+        this.history = navParams.get('history');
     }
 
     ionViewDidLoad() { }

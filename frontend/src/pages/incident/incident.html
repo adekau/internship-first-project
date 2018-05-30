@@ -9,7 +9,7 @@
     <ion-navbar>
         <ion-title>{{ data.latest.name }}</ion-title>
         <ion-buttons end>
-            <button ion-button icon-only (click)="presentActionSheet()">
+            <button ion-button icon-only (click)="presentActionSheet()" *ngIf="!history">
                 <ion-icon name="md-more"></ion-icon>
             </button>
         </ion-buttons>

@@ -48,9 +48,9 @@ export class IncidentHistoryPage {
             if (d.revision === num) {
                 let obj = Object.assign({}, this.incident);
                 obj.latest = d;
-                console.log(obj);
                 this.navCtrl.push(IncidentPage, {
-                    data: obj
+                    data: obj,
+                    history: true
                 });
             }
         });
