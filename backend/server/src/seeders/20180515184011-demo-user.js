@@ -19,6 +19,13 @@ module.exports = {
             email: 'tyler@meetmaestro.com',
             role: 'tracker',
             password: pass
+        },
+        {
+            firstName: 'Kyle',
+            lastName: 'Gulau',
+            email: 'kyle@meetmaestro.com',
+            role: 'tracker',
+            password: pass
         }], {});
     },
 

@@ -118,7 +118,7 @@ export class IncidentFormPage {
                     position: 'top'
                 }).present();
                 this.allowedToLeave = true;
-                this.navCtrl.pop();
+                this.navCtrl.setRoot(DashboardPage);
             });
     }
 
